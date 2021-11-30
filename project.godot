@@ -11,8 +11,7 @@ config_version=4
 [application]
 
 config/name="Fire of Rebellion 10"
-run/main_scene="res://world.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://world/world.tscn"
 
 [display]
 
