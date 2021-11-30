@@ -59,7 +59,7 @@ height = 6.29373
 
 [node name="Character" type="KinematicBody2D"]
 
-[node name="light" type="Sprite" parent="."]
+[node name="Light" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.254902 )
 position = Vector2( 7, 3.68502 )
 scale = Vector2( 0.5, 0.5 )
