@@ -11,4 +11,4 @@
 [node name="Wall" parent="." instance=ExtResource( 3 )]
 
 [node name="Character2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 8.68191, 3.46477 )
+position = Vector2( 198.889, 90.3274 )
