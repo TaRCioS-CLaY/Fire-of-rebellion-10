@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://sprites/character.png" type="Texture" id=1]
+[ext_resource path="res://sprites/character_with_tourch.png" type="Texture" id=1]
+[ext_resource path="res://sprites/light.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -17,8 +18,7 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "walk"
+[sub_resource type="Animation" id=2]
 length = 2.0
 loop = true
 step = 0.25
@@ -35,7 +35,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "walk_torch"
 length = 2.0
 loop = true
@@ -53,24 +53,30 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 4.67836
 height = 6.29373
 
 [node name="Character" type="KinematicBody2D"]
 
+[node name="light" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.254902 )
+position = Vector2( 7, 3.68502 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 2
-frame = 8
+frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
-anims/RESET = SubResource( 3 )
-anims/walk = SubResource( 1 )
-anims/walk_torch = SubResource( 4 )
+anims/RESET = SubResource( 1 )
+anims/walk = SubResource( 2 )
+anims/walk_torch = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 8.243 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
