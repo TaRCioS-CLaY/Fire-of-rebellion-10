@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://character/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/TileMapFloorSample.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/TileMapWallSample.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+
+[node name="Wall" parent="." instance=ExtResource( 3 )]
 
 [node name="Character2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 8.68191, 3.46477 )
