@@ -60,9 +60,11 @@ scale = Vector2( 0.1375, 0.13151 )
 texture = ExtResource( 2 )
 color = Color( 1, 0, 0, 0.0156863 )
 energy = 5.0
+shadow_enabled = true
 
 [node name="Light2DAmbriente" type="Light2D" parent="."]
 scale = Vector2( 1.15273, 1.10252 )
 texture = ExtResource( 2 )
 color = Color( 1, 0, 0, 0.0196078 )
 energy = 5.0
+shadow_enabled = true
