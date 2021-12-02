@@ -14,7 +14,8 @@ var screen_size
 func _ready():
 	screen_size = get_viewport_rect().size
 	get_node("AnimationPlayer").play(anim)
-	pass # Replace with function body.
+	yield(get_tree(), "idle_frame")
+	get_tree().call_group("monster", "set_character", self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,6 +56,8 @@ func _process(delta):
 		anim = "idle_torch"
 	
 	motion = Vector2(dirX,dirY)
+	#motion = motion.normalized()
+	#move_and_collide(motion * vel * delta)
 	translate(motion * vel * delta)
 	
 	global_position.x = clamp(global_position.x, 26, screen_size.x - 34)
@@ -63,5 +66,5 @@ func _process(delta):
 	if old_motion == motion:
 		return
 		
-	old_motion = motion		
+	old_motion = motion
 	get_node("AnimationPlayer").play(anim)
