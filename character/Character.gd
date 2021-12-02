@@ -1,9 +1,10 @@
 extends KinematicBody2D
 
-# posicao minima 26
-# posicao maxima 373
 var vel = 50
 onready var sprite = get_node( "Sprite" )
+onready var torch_light = get_node("Light2D_torch")
+onready var torch_light_ambient = get_node("Light2D_torch_ambient")
+onready var shadow = get_node("LightOccluder2D_shadow")
 var anim = "idle_torch"
 var motion = Vector2(0, 0)
 var old_motion = Vector2(0, 0)
@@ -24,6 +25,9 @@ func _process(delta):
 	if Input.is_action_pressed("ui_left"):
 		dirX += -2
 		sprite.set_flip_h(true)
+		torch_light.position.x = -8
+		torch_light_ambient.position.x = -8
+		shadow.scale.x = -1
 		anim = "walk_torch"
 		
 	if Input.is_action_just_released("ui_left") and (not Input.is_action_pressed("ui_up") or not Input.is_action_pressed("ui_down")):
@@ -41,6 +45,9 @@ func _process(delta):
 	if Input.is_action_pressed("ui_right"):
 		dirX += 2
 		sprite.set_flip_h(false)
+		torch_light.position.x = 8.109
+		torch_light_ambient.position.x = 8.109
+		shadow.scale.x = 1
 		anim = "walk_torch"
 		
 	if Input.is_action_just_released("ui_right") and (not Input.is_action_pressed("ui_up") or not Input.is_action_pressed("ui_down")):
@@ -72,5 +79,3 @@ func _process(delta):
 		
 	old_motion = motion		
 	get_node("AnimationPlayer").play(anim)
-
-	

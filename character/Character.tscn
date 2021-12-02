@@ -18,6 +18,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 8 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Light2D_torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8.109, 2.101 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Light2D_torch_ambient:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8.109, 2.101 ) ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "idle"
@@ -74,9 +98,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "walk_torch"
-length = 2.0
+length = 0.82
 loop = true
-step = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -84,10 +107,34 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Light2D_torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8.109, 2.101 ), Vector2( 8.109, 0.1 ), Vector2( 8.109, 3.101 ), Vector2( 8.109, 2.101 ), Vector2( 8.109, 0.1 ), Vector2( 8.109, 3.101 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Light2D_torch_ambient:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8.109, 2.101 ), Vector2( 8.109, 0.1 ), Vector2( 8.109, 3.101 ), Vector2( 8.109, 2.101 ), Vector2( 8.109, 0.1 ), Vector2( 8.109, 3.101 ) ]
 }
 
 [sub_resource type="CapsuleShape2D" id=4]
@@ -126,21 +173,21 @@ visible = false
 position = Vector2( 0, 8.243 )
 shape = SubResource( 4 )
 
-[node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 8.10938, 3.10082 )
+[node name="Light2D_torch" type="Light2D" parent="."]
+position = Vector2( 8.109, 2.101 )
 scale = Vector2( 0.1375, 0.13151 )
 texture = ExtResource( 2 )
 color = Color( 1, 0, 0, 0.0156863 )
 energy = 5.0
 shadow_enabled = true
 
-[node name="Light2DAmbriente" type="Light2D" parent="."]
-position = Vector2( 8.10938, 3.10082 )
+[node name="Light2D_torch_ambient" type="Light2D" parent="."]
+position = Vector2( 8.109, 2.101 )
 scale = Vector2( 1.15273, 1.10252 )
 texture = ExtResource( 2 )
 color = Color( 1, 0, 0, 0.0196078 )
 energy = 5.0
 shadow_enabled = true
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+[node name="LightOccluder2D_shadow" type="LightOccluder2D" parent="."]
 occluder = SubResource( 6 )
