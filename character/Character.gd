@@ -30,17 +30,9 @@ func _process(delta):
 		shadow.scale.x = -1
 		anim = "walk_torch"
 		
-	if Input.is_action_just_released("ui_left") and (not Input.is_action_pressed("ui_up") or not Input.is_action_pressed("ui_down")):
-		anim = "idle_torch"
-		dirX = 0		
-		
 	if Input.is_action_pressed("ui_up"):
 		dirY += -2
 		anim = "walk_torch"
-
-	if Input.is_action_just_released("ui_up") and (not Input.is_action_pressed("ui_left") or not Input.is_action_pressed("ui_right")):
-		anim = "idle_torch"
-		dirY = 0	
 	
 	if Input.is_action_pressed("ui_right"):
 		dirX += 2
@@ -50,24 +42,18 @@ func _process(delta):
 		shadow.scale.x = 1
 		anim = "walk_torch"
 		
-	if Input.is_action_just_released("ui_right") and (not Input.is_action_pressed("ui_up") or not Input.is_action_pressed("ui_down")):
-		anim = "idle_torch"
-		dirX = 0
-		dirY = 0
-		
-		
 	if Input.is_action_pressed("ui_down"):
 		dirY += 2
 		anim = "walk_torch"
-		
-	if Input.is_action_just_released("ui_down") and (not Input.is_action_pressed("ui_left") or not Input.is_action_pressed("ui_right")):
-		anim = "idle_torch"
-		dirY = 0		
 		
 	#Pick up Torch	
 	if(Input.is_action_just_pressed("ui_accept")):
 		print('picked')
 		
+		
+	if dirX == 0 and dirY == 0:
+		anim = "idle_torch"
+	
 	motion = Vector2(dirX,dirY)
 	translate(motion * vel * delta)
 	
