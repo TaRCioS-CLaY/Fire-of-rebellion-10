@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/monster.png-56dd124764c26463793a19c55f2721ac.stex"
+path="res://.import/mouth-Sheet.png-2e4b08d5f7601caf563bd3ef0a1b5f8c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/monster.png"
-dest_files=[ "res://.import/monster.png-56dd124764c26463793a19c55f2721ac.stex" ]
+source_file="res://sprites/monster/mouth-Sheet.png"
+dest_files=[ "res://.import/mouth-Sheet.png-2e4b08d5f7601caf563bd3ef0a1b5f8c.stex" ]
 
 [params]
 

@@ -9,7 +9,7 @@ var character
 
 func _ready():
 	add_to_group("monster")
-	get_node("AnimationPlayer").play(anim)
+	get_node("MainAnimationPlayer").play(anim)
 	state = states.CHASE
 
 func _process(delta):
@@ -38,3 +38,17 @@ func state_chase(delta):
 func set_character(player):
 	print_debug(player)
 	character = player
+	
+
+func _on_Area2D_body_entered(body):
+	$mouth.visible = true
+	$mouth/mouthPlayer.play("Opening")
+
+func _on_Area2D_body_exited(body):
+	$mouth/mouthPlayer.play("Closing")
+
+func _mouth_open_animation():
+	$mouth/mouthPlayer.play("Open")
+
+func _mouth_hidde():
+	$mouth.visible = false

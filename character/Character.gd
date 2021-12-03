@@ -47,10 +47,9 @@ func _process(delta):
 		dirY += 2
 		anim = "walk_torch"
 		
-	#Pick up Torch	
+	#Pick up Torch
 	if(Input.is_action_just_pressed("ui_accept")):
 		print('picked')
-		
 		
 	if dirX == 0 and dirY == 0:
 		anim = "idle_torch"
