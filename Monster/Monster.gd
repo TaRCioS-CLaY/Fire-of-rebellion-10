@@ -41,11 +41,13 @@ func set_character(player):
 	
 
 func _on_Area2D_body_entered(body):
-	$mouth.visible = true
-	$mouth/mouthPlayer.play("Opening")
+	if body == character:
+		$mouth.visible = true
+		$mouth/mouthPlayer.play("Opening")
 
 func _on_Area2D_body_exited(body):
-	$mouth/mouthPlayer.play("Closing")
+	if body == character:
+		$mouth/mouthPlayer.play("Closing")
 
 func _mouth_open_animation():
 	$mouth/mouthPlayer.play("Open")

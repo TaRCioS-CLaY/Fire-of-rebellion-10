@@ -26,7 +26,7 @@ tracks/0/keys = {
 [sub_resource type="OccluderPolygon2D" id=3]
 polygon = PoolVector2Array( -9.14072, 28.3964, 10.801, 27.9996, 10.9002, -0.524056, 6.0884, -9.65162, -5.37065, -8.7587, -8.84309, 3.29562 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "Closing"
 length = 0.8
 tracks/0/type = "value"
@@ -56,8 +56,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Open"
+[sub_resource type="Animation" id=5]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -97,8 +96,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 4.5, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Opening"
+[sub_resource type="Animation" id=6]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("spriteMouth:frame")
@@ -127,7 +125,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=7]
 radius = 87.1342
 
 [node name="Monster" type="KinematicBody2D"]
@@ -161,14 +159,14 @@ vframes = 2
 frame = 1
 
 [node name="mouthPlayer" type="AnimationPlayer" parent="mouth"]
-anims/Closing = SubResource( 7 )
-anims/Open = SubResource( 4 )
-anims/Opening = SubResource( 5 )
+anims/Closing = SubResource( 4 )
+anims/Open = SubResource( 5 )
+anims/Opening = SubResource( 6 )
 
 [node name="Area2D" type="Area2D" parent="mouth"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mouth/Area2D"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [connection signal="body_entered" from="mouth/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="mouth/Area2D" to="." method="_on_Area2D_body_exited"]
