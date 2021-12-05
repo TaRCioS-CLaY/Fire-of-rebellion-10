@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Minecart_side",
+"language": "GDScript",
+"path": "res://minecart/minecart_side.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Minecart_top",
+"language": "GDScript",
+"path": "res://minecart/Minecart_top.gd"
+} ]
+_global_script_class_icons={
+"Minecart_side": "",
+"Minecart_top": ""
+}
+
 [application]
 
 config/name="Fire of Rebellion 10"
@@ -44,6 +60,16 @@ texture={
 "stream": false,
 "svg/scale": 1.0
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Monster"
+2d_physics/layer_3="Torch"
+2d_physics/layer_4="Button"
+2d_physics/layer_8="Minecart"
+2d_physics/layer_9="Ground"
+2d_physics/layer_10="Wall"
 
 [physics]
 

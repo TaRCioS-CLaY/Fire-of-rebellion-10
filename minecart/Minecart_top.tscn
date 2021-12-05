@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://sprites/minecart_top.png" type="Texture" id=1]
+[ext_resource path="res://minecart/Minecart_top.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -50,18 +51,24 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6.5, 9.5 )
+
 [node name="Minecart_top" type="KinematicBody2D"]
+collision_layer = 128
+collision_mask = 641
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 154, 177 )
 texture = ExtResource( 1 )
 hframes = 3
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 150, 186, 147, 184, 147, 169, 150, 167, 150, 166, 159, 166, 159, 167, 162, 170, 162, 184, 159, 186, 159, 187, 150, 187 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/moving = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 154.5, 176.5 )
+shape = SubResource( 4 )
