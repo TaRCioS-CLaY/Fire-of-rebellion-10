@@ -111,13 +111,13 @@ func _process(delta):
 		anim = get_right_animation("idle",has_torch)
 	
 	motion = Vector2(dirX,dirY)
-	#motion = motion.normalized()
-	#move_and_collide(motion * vel * delta)
+	motion = motion.normalized()
+	move_and_collide(motion * vel * delta)
 	translate(motion * vel * delta)
 
 	
-	global_position.x = clamp(global_position.x, 26, screen_size.x - 34)
-	global_position.y = clamp(global_position.y, 26, screen_size.y - 34)
+	#global_position.x = clamp(global_position.x, 26, screen_size.x - 34)
+	#global_position.y = clamp(global_position.y, 26, screen_size.y - 34)
 	
 	if old_motion == motion:
 		return
