@@ -60,7 +60,6 @@ collision_mask = 641
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 154, 177 )
 texture = ExtResource( 1 )
 hframes = 3
 
@@ -70,5 +69,6 @@ anims/idle = SubResource( 2 )
 anims/moving = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 154.5, 176.5 )
 shape = SubResource( 4 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]

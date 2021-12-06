@@ -14,11 +14,13 @@ var dirX := 0
 var dirY := 0
 var has_torch:= false
 var action_in_progress = false
+var character_state = "idle"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	get_node("AnimationPlayer").play(get_right_animation("idle", has_torch))
+	character_state = "idle"
+	get_node("AnimationPlayer").play(get_right_animation(has_torch))
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("monster", "set_character", self)
 	torch_light_switch()
@@ -54,11 +56,13 @@ func _process(delta):
 		torch_light.position.x = -8
 		torch_light_ambient.position.x = -8
 		shadow.scale.x = -1
-		anim = get_right_animation("walk",has_torch)
+		character_state = "walk"
+		anim = get_right_animation(has_torch)
 		
 	if Input.is_action_pressed("ui_up"):
 		dirY += -2
-		anim = get_right_animation("walk",has_torch)
+		character_state = "walk"
+		anim = get_right_animation(has_torch)
 	
 	if Input.is_action_pressed("ui_right"):
 		dirX += 2
@@ -66,23 +70,25 @@ func _process(delta):
 		torch_light.position.x = 8.109
 		torch_light_ambient.position.x = 8.109
 		shadow.scale.x = 1
-		anim = get_right_animation("walk", has_torch)
+		character_state = "walk"
+		anim = get_right_animation(has_torch)
 		
 	if Input.is_action_pressed("ui_down"):
 		dirY += 2
-		anim = get_right_animation("walk",has_torch)
+		character_state = "walk"
+		anim = get_right_animation(has_torch)
 		
 	#Pick up Torch
 	if(Input.is_action_just_pressed("ui_select")):
 		print('picked')
 		has_torch = not has_torch
 		torch_light_switch()
-		get_node("AnimationPlayer").play(get_right_animation("idle",has_torch))
+		get_node("AnimationPlayer").play(get_right_animation(has_torch))
 		
 	if(Input.is_action_just_pressed("ui_accept")):
 		if has_torch:
 			get_node("AnimationPlayer").play("throw_torch")
-			get_node("AnimationPlayer").queue("idle")
+			get_node("AnimationPlayer").queue(character_state)
 			has_torch = false
 			action_in_progress = true
 			torch_light_switch()
@@ -108,7 +114,8 @@ func _process(delta):
 		$pushUp.set_enabled(false)		
 		
 	if (dirX == 0 and dirY == 0):
-		anim = get_right_animation("idle",has_torch)
+		character_state = "idle"
+		anim = get_right_animation(has_torch)
 	
 	motion = Vector2(dirX,dirY)
 	motion = motion.normalized()
@@ -125,7 +132,7 @@ func _process(delta):
 	old_motion = motion
 	get_node("AnimationPlayer").play(anim)		
 
-func get_right_animation(character_state, with_torch):
+func get_right_animation(with_torch):
 	match character_state:
 		"idle":
 			return "idle_torch" if with_torch else "idle"
