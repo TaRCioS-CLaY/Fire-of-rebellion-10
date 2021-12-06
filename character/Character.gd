@@ -2,23 +2,26 @@ extends KinematicBody2D
 
 var vel = 50
 var push_speed = 125.0
-onready var sprite = get_node( "Sprite" )
-onready var torch_light = get_node("Light2D_torch")
-onready var torch_light_ambient = get_node("Light2D_torch_ambient")
-onready var shadow = get_node("LightOccluder2D_shadow")
-var anim = "idle_torch"
-var motion = Vector2(0, 0)
-var old_motion = Vector2(0, 0)
+onready var sprite:Sprite = get_node( "Sprite" )
+onready var torch_light:Light2D = get_node("Light2D_torch")
+onready var torch_light_ambient:Light2D = get_node("Light2D_torch_ambient")
+onready var shadow:LightOccluder2D = get_node("LightOccluder2D_shadow")
+var anim = "idle"
+var motion := Vector2(0, 0)
+var old_motion := Vector2(0, 0)
 var screen_size
-var dirX = 0
-var dirY = 0
+var dirX := 0
+var dirY := 0
+var has_torch:= false
+var action_in_progress = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	get_node("AnimationPlayer").play(anim)
+	get_node("AnimationPlayer").play(get_right_animation("idle", has_torch))
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("monster", "set_character", self)
+	torch_light_switch()
 
 func _physics_process(delta: float) -> void:
 	move_and_collide(Vector2(dirX, dirY) * delta)
@@ -51,11 +54,11 @@ func _process(delta):
 		torch_light.position.x = -8
 		torch_light_ambient.position.x = -8
 		shadow.scale.x = -1
-		anim = "walk_torch"
+		anim = get_right_animation("walk",has_torch)
 		
 	if Input.is_action_pressed("ui_up"):
 		dirY += -2
-		anim = "walk_torch"
+		anim = get_right_animation("walk",has_torch)
 	
 	if Input.is_action_pressed("ui_right"):
 		dirX += 2
@@ -63,15 +66,26 @@ func _process(delta):
 		torch_light.position.x = 8.109
 		torch_light_ambient.position.x = 8.109
 		shadow.scale.x = 1
-		anim = "walk_torch"
+		anim = get_right_animation("walk", has_torch)
 		
 	if Input.is_action_pressed("ui_down"):
 		dirY += 2
-		anim = "walk_torch"
+		anim = get_right_animation("walk",has_torch)
 		
 	#Pick up Torch
-	if(Input.is_action_just_pressed("ui_accept")):
+	if(Input.is_action_just_pressed("ui_select")):
 		print('picked')
+		has_torch = not has_torch
+		torch_light_switch()
+		get_node("AnimationPlayer").play(get_right_animation("idle",has_torch))
+		
+	if(Input.is_action_just_pressed("ui_accept")):
+		if has_torch:
+			get_node("AnimationPlayer").play("throw_torch")
+			get_node("AnimationPlayer").queue("idle")
+			has_torch = false
+			action_in_progress = true
+			torch_light_switch()
 		
 	if dirX > 1:
 		$pushRight.set_enabled(true)
@@ -93,9 +107,8 @@ func _process(delta):
 	else:
 		$pushUp.set_enabled(false)		
 		
-		
-	if dirX == 0 and dirY == 0:
-		anim = "idle_torch"
+	if (dirX == 0 and dirY == 0):
+		anim = get_right_animation("idle",has_torch)
 	
 	motion = Vector2(dirX,dirY)
 	#motion = motion.normalized()
@@ -111,3 +124,14 @@ func _process(delta):
 		
 	old_motion = motion
 	get_node("AnimationPlayer").play(anim)		
+
+func get_right_animation(character_state, with_torch):
+	match character_state:
+		"idle":
+			return "idle_torch" if with_torch else "idle"
+		"walk":
+			return "walk_torch" if with_torch else "walk"
+
+func torch_light_switch():
+	torch_light.enabled = has_torch
+	torch_light_ambient.enabled = has_torch
