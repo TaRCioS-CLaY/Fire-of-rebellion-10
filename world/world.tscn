@@ -10,7 +10,7 @@
 [ext_resource path="res://Button/Button.tscn" type="PackedScene" id=8]
 [ext_resource path="res://world/TileMap/shadow.png" type="Texture" id=9]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=["torchs"]]
 
 [node name="Floor" parent="." instance=ExtResource( 2 )]
 collision_layer = 256
@@ -23,7 +23,7 @@ collision_mask = 135
 [node name="button" parent="." instance=ExtResource( 8 )]
 position = Vector2( 268.835, 107.392 )
 
-[node name="Character2" parent="." instance=ExtResource( 1 )]
+[node name="Character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 198.889, 90.3274 )
 
 [node name="Torch" parent="." instance=ExtResource( 4 )]

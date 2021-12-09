@@ -6,6 +6,7 @@ onready var sprite:Sprite = get_node( "Sprite" )
 onready var torch_light:Light2D = get_node("Light2D_torch")
 onready var torch_light_ambient:Light2D = get_node("Light2D_torch_ambient")
 onready var shadow:LightOccluder2D = get_node("LightOccluder2D_shadow")
+onready var existing_torch = get_parent().get_node("Torch")
 const PRE_TORCH = preload("res://torch/torch.tscn")
 var anim = "idle"
 var motion := Vector2(0, 0)
@@ -17,6 +18,7 @@ var has_torch:= false
 var action_in_progress = false
 var character_state = "idle"
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -25,6 +27,14 @@ func _ready():
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("monster", "set_character", self)
 	torch_light_switch()
+#	PRE_TORCH.connect("character_close",self, "teste")
+	print(get_tree())
+#	existing_torch.connect("character_close",existing_torch, "teste")
+#	var tocha = get_parent().get_tree().find_node("torch", true, false)
+#	var tocha = get_tree().get_root().find_node("torch", true, false)
+#	tocha.connect("character_close",self, "teste")
+#	connect("character_close", self, "teste")
+	
 
 func _physics_process(delta: float) -> void:
 	move_and_collide(Vector2(dirX, dirY) * delta)
@@ -83,10 +93,14 @@ func _process(delta):
 		
 	#Pick up Torch
 	if(Input.is_action_just_pressed("ui_select")):
-		print('picked')
-		has_torch = not has_torch
-		torch_light_switch()
-		$AnimationPlayer.play(get_right_animation(has_torch))
+#		$pickup_Area2D.pick_item()
+		for body in $pickup_Area2D.get_overlapping_bodies():
+			print(body)
+			if body.is_in_group("torchs"):
+				body.queue_free()
+				has_torch = not has_torch
+				torch_light_switch()
+				$AnimationPlayer.play(get_right_animation(has_torch))
 		
 	if(Input.is_action_just_pressed("ui_accept")):
 		if has_torch:
@@ -95,6 +109,7 @@ func _process(delta):
 			$AnimationPlayer.queue(character_state)
 			var torch = PRE_TORCH.instance() as Torch	
 			get_parent().add_child(torch)
+			torch.connect("character_close",self, "teste")
 			if $torchRayCast.cast_to.x > 0 :
 				torch.global_position = global_position + $torchRayCast.position
 				torch.throw($torchRayCast.cast_to + torch.global_position)

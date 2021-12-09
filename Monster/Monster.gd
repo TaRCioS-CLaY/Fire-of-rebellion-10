@@ -25,7 +25,7 @@ func state_confuzed(delta):
 	
 	var motion = Vector2(dirX,dirY)
 	motion = motion.normalized()
-	move_and_collide(motion * vel * delta)
+#	move_and_collide(motion * vel * delta)
 
 func state_chase(delta):
 	if character == null:
@@ -33,7 +33,7 @@ func state_chase(delta):
 		
 	var vect_to_character = character.global_position - global_position
 	vect_to_character = vect_to_character.normalized()
-	move_and_collide(vect_to_character * vel * delta)
+#	move_and_collide(vect_to_character * vel * delta)
 
 func set_character(player):
 	print_debug(player)

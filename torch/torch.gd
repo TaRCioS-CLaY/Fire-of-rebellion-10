@@ -10,6 +10,7 @@ func _physics_process(delta: float) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("torchs")
 	$AnimationPlayer.play("idle")
 
 
@@ -22,3 +23,5 @@ func throw(directions: Vector2):
 	$AnimationPlayer.play("throwed")
 	dirX = directions.x
 #	dirY = directions.y
+
+
