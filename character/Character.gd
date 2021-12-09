@@ -6,6 +6,7 @@ onready var sprite:Sprite = get_node( "Sprite" )
 onready var torch_light:Light2D = get_node("Light2D_torch")
 onready var torch_light_ambient:Light2D = get_node("Light2D_torch_ambient")
 onready var shadow:LightOccluder2D = get_node("LightOccluder2D_shadow")
+const PRE_TORCH = preload("res://torch/torch.tscn")
 var anim = "idle"
 var motion := Vector2(0, 0)
 var old_motion := Vector2(0, 0)
@@ -20,7 +21,7 @@ var character_state = "idle"
 func _ready():
 	screen_size = get_viewport_rect().size
 	character_state = "idle"
-	get_node("AnimationPlayer").play(get_right_animation(has_torch))
+	$AnimationPlayer.play(get_right_animation(has_torch))
 	yield(get_tree(), "idle_frame")
 	get_tree().call_group("monster", "set_character", self)
 	torch_light_switch()
@@ -58,6 +59,7 @@ func _process(delta):
 		shadow.scale.x = -1
 		character_state = "walk"
 		anim = get_right_animation(has_torch)
+		$torchRayCast.cast_to.x = -50
 		
 	if Input.is_action_pressed("ui_up"):
 		dirY += -2
@@ -72,6 +74,7 @@ func _process(delta):
 		shadow.scale.x = 1
 		character_state = "walk"
 		anim = get_right_animation(has_torch)
+		$torchRayCast.cast_to.x = 50
 		
 	if Input.is_action_pressed("ui_down"):
 		dirY += 2
@@ -83,15 +86,25 @@ func _process(delta):
 		print('picked')
 		has_torch = not has_torch
 		torch_light_switch()
-		get_node("AnimationPlayer").play(get_right_animation(has_torch))
+		$AnimationPlayer.play(get_right_animation(has_torch))
 		
 	if(Input.is_action_just_pressed("ui_accept")):
 		if has_torch:
-			get_node("AnimationPlayer").play("throw_torch")
-			get_node("AnimationPlayer").queue(character_state)
+			$AnimationPlayer.play("throw_torch")
+			yield($AnimationPlayer, "animation_finished")
+			$AnimationPlayer.queue(character_state)
+			var torch = PRE_TORCH.instance() as Torch	
+			get_parent().add_child(torch)
+			if $torchRayCast.cast_to.x > 0 :
+				torch.global_position = global_position + $torchRayCast.position
+				torch.throw($torchRayCast.cast_to + torch.global_position)
+			else:
+				torch.global_position = global_position + Vector2(-$torchRayCast.position.x, $torchRayCast.position.y)
+				torch.throw($torchRayCast.cast_to - torch.global_position)
 			has_torch = false
 			action_in_progress = true
 			torch_light_switch()
+
 		
 	if dirX > 1:
 		$pushRight.set_enabled(true)
@@ -130,7 +143,7 @@ func _process(delta):
 		return
 		
 	old_motion = motion
-	get_node("AnimationPlayer").play(anim)		
+	$AnimationPlayer.play(anim)		
 
 func get_right_animation(with_torch):
 	match character_state:
