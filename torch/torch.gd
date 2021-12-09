@@ -20,7 +20,10 @@ func _process(delta):
 	
 
 func throw(directions: Vector2):
-	$AnimationPlayer.play("throwed")
+	if directions.x > 0:
+		$AnimationPlayer.play("throwed_right")
+	else:
+		$AnimationPlayer.play("throwed_left")
 	dirX = directions.x
 #	dirY = directions.y
 
