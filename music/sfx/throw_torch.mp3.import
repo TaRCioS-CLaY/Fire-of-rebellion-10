@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/throw_torch.mp3-be7579c03f4d821450e925ce5a3cab2b.mp3str"
+
+[deps]
+
+source_file="res://music/sfx/throw_torch.mp3"
+dest_files=[ "res://.import/throw_torch.mp3-be7579c03f4d821450e925ce5a3cab2b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

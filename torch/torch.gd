@@ -7,6 +7,7 @@ func _physics_process(delta: float) -> void:
 		move_and_collide(Vector2(dirX, 0) * delta * 0.3)
 		yield($AnimationPlayer, "animation_finished")
 		dirX = 0
+		$AnimationPlayer.play("idle")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

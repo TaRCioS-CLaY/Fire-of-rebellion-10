@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rafael_Archangel_-_17_-_Sleep_Time.mp3-1e119950e173595c54965e51b8d9aefb.mp3str"
+
+[deps]
+
+source_file="res://music/bgm/Rafael_Archangel_-_17_-_Sleep_Time.mp3"
+dest_files=[ "res://.import/Rafael_Archangel_-_17_-_Sleep_Time.mp3-1e119950e173595c54965e51b8d9aefb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
